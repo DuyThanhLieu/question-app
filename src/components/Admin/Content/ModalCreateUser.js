@@ -4,8 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './ModalCreateUser.scss';
 import { FcPlus } from 'react-icons/fc';
-import axios from 'axios';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { postCreateNewuser } from '../../../services/apiServices';
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
     const handleClose = () => {
@@ -36,10 +37,29 @@ const ModalCreateUser = (props) => {
         // cap lai state
 
     }
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
     const handSubmitCreateUser = async () => {
 
-        //validate
-        //call apiss
+        //validate email khong hop le thi dung khong chay data
+        const isValidEmail = validateEmail(email)
+        if (!isValidEmail) {
+            toast.error('invalid email')
+
+            return;
+        }
+        if (!password) {
+            toast.error('invalid password')
+
+            return;
+        }
+
+        //call apis
         // let data = {
         //     email: email,
         //     password: password,
@@ -48,15 +68,18 @@ const ModalCreateUser = (props) => {
         //     userImage: image,
         // }
         // console.log(data)
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        data.append('username', username);
-        data.append('role', role);
-        data.append('userImage', image);
+
         // goi dung method de thuc hien api dung muc dich
-        let res = await axios.post('http://localhost:8081/api/v1/participant', data);
-        console.log('>>>>>check res:', res);
+        let data = await postCreateNewuser(email, password, username, role, image)
+        console.log('>>>>>component res:', data);
+        //check dieu kien tao user thanh cong
+        if (data && data.EC === 0) {
+            toast.success(data.EM)
+            handleClose();
+        }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM);
+        }
     }
 
     return (
