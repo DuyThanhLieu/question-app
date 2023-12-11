@@ -6,10 +6,10 @@ import './ModalCreateUser.scss';
 import { FcPlus } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { putUpdateUser } from '../../../services/apiServices';
 import _ from 'lodash';
-const ModalUpdateUser = (props) => {
+const ModalViewUser = (props) => {
     const { show, setShow, dataUpdateUser } = props;
+
     const handleClose = () => {
         setShow(false)
         setEmail("");
@@ -24,12 +24,12 @@ const ModalUpdateUser = (props) => {
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
     const [image, setImage] = useState("");
-
     const [role, setRole] = useState("USER");
     const [previewImage, setPreviewImage] = useState("");
     useEffect(() => {
         if (!_.isEmpty(dataUpdateUser)) {
-            //update state
+            console.log('run ueseffect', dataUpdateUser);
+            //update
             setEmail(dataUpdateUser.email);
             setUsername(dataUpdateUser.username);
             setRole(dataUpdateUser.role);
@@ -65,35 +65,11 @@ const ModalUpdateUser = (props) => {
 
             return;
         }
-        // if (!password) {
-        //     toast.error('invalid password')
 
-        //     return;
-        // }
-
-        //call apis
-        // let data = {
-        //     email: email,
-        //     password: password,
-        //     username: username,
-        //     role: role,
-        //     userImage: image,
-        // }
-        // console.log(data)
 
         // goi dung method de thuc hien api dung muc dich
-        let data = await putUpdateUser(dataUpdateUser.id, username, role, image)
-        console.log('>>>>>component res:', data);
-        //check dieu kien tao user thanh cong
-        if (data && data.EC === 0) {
-            toast.success(data.EM)
-            handleClose();
-            await props.fetchListUsers();
-            // con goi len cha 
-        }
-        if (data && data.EC !== 0) {
-            toast.error(data.EM);
-        }
+
+
     }
 
     console.log('check data update', props.dataUpdateUser);
@@ -106,7 +82,7 @@ const ModalUpdateUser = (props) => {
             <Modal show={show} onHide={handleClose} size="xl" backdrop="static"
                 className='modal-add-user'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update a user</Modal.Title>
+                    <Modal.Title>View a user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form class="row g-3">
@@ -161,12 +137,12 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handSubmitCreateUser(Image)}>
+                    {/* <Button variant="primary" onClick={() => handSubmitCreateUser(Image)}>
                         Save
-                    </Button>
+                </Button>  */}
                 </Modal.Footer>
             </Modal >
         </>
     )
 }
-export default ModalUpdateUser;
+export default ModalViewUser;
