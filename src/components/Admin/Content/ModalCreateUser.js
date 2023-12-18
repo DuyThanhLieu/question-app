@@ -76,7 +76,8 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose();
-            await props.fetchListUsers();
+            props.setCurrentPage(1)//cho ve trang 1 
+            await props.fetchListUsersWithPaginate(1);
             // con goi len cha 
         }
         if (data && data.EC !== 0) {

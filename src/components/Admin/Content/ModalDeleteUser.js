@@ -12,9 +12,11 @@ const ModalDeleteUser = (props) => {
         // console.log('>>>>>component res:', data);
         //check dieu kien tao user thanh cong
         if (data && data.EC === 0) {
-            toast.success(data.EM) 
+            toast.success(data.EM)
             handleClose();
-            await props.fetchListUsers();
+            props.setCurrentPage(1)//cho ve trang 1 
+            // await props.fetchListUsers();
+            await props.fetchListUsersWithPaginate(1)// mac dinh la trang 1 
             //goi lai du lieu khi xoa user
             // con goi len cha 
         }
