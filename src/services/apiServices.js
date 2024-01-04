@@ -20,7 +20,7 @@ const putUpdateUser = (id, username, role, image) => {
     data.append('username', username);
     data.append('role', role);
     data.append('userImage', image);
-    return axios.put('api/v1/participant', data);
+    return axios.put('api/v1/participant', data);//form data
 }
 const deleteUser = (userId) => {
     //axios yeu cau bien data
@@ -32,4 +32,10 @@ const getUserWithPaginate = (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
     //truyen userId cho api
 };
-export { postCreateNewuser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate }
+const postLogin = (userEmail, userPassword) => {
+    return axios.post(`api/v1/login`, { email: userEmail, password: userPassword });
+}
+const postRegister = (email, password, username) => {
+    return axios.post(`api/v1/register`, { email, password, username });
+}
+export { postCreateNewuser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister }
