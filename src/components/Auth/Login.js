@@ -38,7 +38,7 @@ const Login = (props) => {
         if (data && data.EC === 0) {
             // Dispatch vào store + logic
             dispatch({
-                type: 'FECH_USER_LOGIN_SUCCESS',
+                type: 'FETCH_USER_LOGIN_SUCCESS',
                 payload: data
             });
             toast.success(data.EM);
