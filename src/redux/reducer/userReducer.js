@@ -1,4 +1,5 @@
 import { INCREMENT, DECREMENT } from '../action/counterAction';
+
 const INITIAL_STATE = {
     account: {
         access_token: '',
@@ -9,13 +10,14 @@ const INITIAL_STATE = {
     },
     isAuthenticated: false
 };
+
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'FETCH_USER_LOGIN_SUCCESS':
-            console.log('check actions', action)
+            console.log('check actions', action);
             return {
-                ...state, account: {
-                    // nap data vao redux
+                ...state,
+                account: {
                     access_token: action?.payload?.DT?.access_token,
                     refresh_token: action?.payload?.DT?.refresh_token,
                     username: action?.payload?.DT?.username,
@@ -26,9 +28,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
             };
         case DECREMENT:
             return {
-                ...state, count: state.count - 1,
+                ...state,
+                count: (state.count || 0) - 1,
             };
-        default: return state;
+        default:
+            return state;
     }
 };
 
