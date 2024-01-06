@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/reducer/userAction';
+import { ImSpinner10 } from "react-icons/im";
+import 'nprogress/nprogress.css';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch(); // Redux dispatch
     const navigator = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     // Hàm kiểm tra định dạng email
     const validateEmail = (email) => {
@@ -30,28 +34,30 @@ const Login = (props) => {
             toast.error('Invalid password');
             return;
         }
-
         // Gửi dữ liệu đăng nhập tới API
+        setIsLoading(true); //off nut login  set bang true dau ham khi reset trang 
         let data = await postLogin(email, password);
-
         // Xử lý kết quả từ API
         if (data && data.EC === 0) {
             // Dispatch vào store + logic
-            dispatch({
-
+            dispatch(
                 //action
-                type: 'FETCH_USER_LOGIN_SUCCESS',
-                payload: data
-            });
+                (doLogin(data)),
+            );
+
             toast.success(data.EM);
+            setIsLoading(false); //tat nut login khi nhan vao
             navigator('/'); // Đăng nhập thành công, chuyển về trang chủ
         }
+        //loi
         if (data && +data.EC !== 0) {
             toast.error(data.EM);
+            setIsLoading(false);
         }
     };
 
     return (
+
         <div className="login-container">
             <div className='header '>
                 <span>Don't have an account yet?</span>
@@ -85,8 +91,10 @@ const Login = (props) => {
                     <button
                         className='btn-submit'
                         onClick={handleLogin}
+                        disabled={isLoading}
                     >
-                        Login to Thanh App Question
+                        {isLoading === true && <ImSpinner10 className='loader-icon' />}
+                        <span> Login to Thanh App Question </span>
                     </button>
                 </div>
                 <div className='text-center'>
