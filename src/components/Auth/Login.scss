@@ -1,8 +1,23 @@
 .login-container {
+  .loader-icon {
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: #00d4ff;
+    animation: spin 1s infinite linear;
+  }
+
+  @keyframes spin {
+    from {
+      transform: scale(1) rotate(0deg);
+    }
+    to {
+      transform: scale(1) rotate(360deg);
+    }
+  }
   .header {
     height: 45px;
     text-align: right;
-    border: 1px solid red;
+    // border: 1px solid red;
     padding: 5px 100px 0 100px;
     button {
       padding: 3px 15px;
@@ -38,6 +53,11 @@
       margin: 20px 0;
       color: white;
       background-color: black;
+      &:disabled {
+        background: #dddddd;
+        color: #afafaf;
+        cursor: no-drop;
+      }
     }
     .back {
       cursor: pointer; // con tro hinh ban tay

@@ -1,4 +1,16 @@
 import axios from "axios";
+import NProgress from 'nprogress';
+
+NProgress.configure({
+    showSpinner: false,
+    // easing: 'ease',
+    // speed: 500,
+    // trickleRate: 0.5,
+    // easing: 'ease',
+    // speed: 200,
+    // trickleRate: 0.02,
+    trickleSpeed: 100,
+});//customize lai loding bar speed
 //customize axios
 const instance = axios.create({
     baseURL: 'http://localhost:8081/', // duong link goi api
@@ -7,7 +19,7 @@ const instance = axios.create({
 });
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
-
+    NProgress.start();
     // Do something before request is sent
     return config;
 }, function (error) {
@@ -17,6 +29,7 @@ instance.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
+    NProgress.done();
     // console.log('>>> intercepting response', response)
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
