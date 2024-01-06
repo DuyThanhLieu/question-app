@@ -38,6 +38,8 @@ const Login = (props) => {
         if (data && data.EC === 0) {
             // Dispatch vào store + logic
             dispatch({
+
+                //action
                 type: 'FETCH_USER_LOGIN_SUCCESS',
                 payload: data
             });
