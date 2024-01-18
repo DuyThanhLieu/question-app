@@ -12,6 +12,9 @@
       border: 1px solid green;
     }
     .admin-main {
+      margin-bottom: 10px;
+      height: calc(100vh - 50px);
+
       .user-paginatetion {
         justify-content: center;
         display: flex;
