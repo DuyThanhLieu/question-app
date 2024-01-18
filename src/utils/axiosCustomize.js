@@ -1,5 +1,6 @@
 import axios from "axios";
 import NProgress from 'nprogress';
+import { store } from '../redux/store';
 
 NProgress.configure({
     showSpinner: false,
@@ -19,6 +20,9 @@ const instance = axios.create({
 });
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
+    // console.log('>>> check store', store.getState())
+    const access_token = store?.getState()?.user?.account?.access_token;
+    config.headers["Authorization"] = "Bearer " + access_token;
     NProgress.start();
     // Do something before request is sent
     return config;

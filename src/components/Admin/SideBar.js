@@ -15,9 +15,10 @@ import { DiReact } from "react-icons/di";
 import { GiReactor } from "react-icons";
 import './SideBar.scss';
 import { MdDashboard } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
+    const navigate = useNavigate();
     const { image, collapsed, toggled, handleToggleSidebar } = props;
     return (
         <>
@@ -42,7 +43,10 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact size={'3em'} color={"00bfff"} />
-                        <span>Thanh reactjs</span>
+                        <span onClick={() => navigate('/')} className='thanh-reactjs'>
+
+                            Thanh reactjs
+                        </span>
                     </div>
                 </SidebarHeader>
 
@@ -69,6 +73,7 @@ const SideBar = (props) => {
                                 <Link to="/admins/manage-users" />
                             </MenuItem>
                             <MenuItem> Quan ly Bai Quiz</MenuItem>
+                            <Link to="/admins/manage-quizzes" />
                             <MenuItem> Quan ly Cau Hoi</MenuItem>
                         </SubMenu>
 
