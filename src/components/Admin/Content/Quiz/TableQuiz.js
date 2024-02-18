@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { getAllQuizForAdmin } from "../../../../services/apiServices";
+
 const TableQuiz = (props) => {
 
+
     const [listQuiz, setListQuiz] = useState([]);
+
 
     useEffect(() => {
         fetchQuiz();
@@ -13,6 +16,7 @@ const TableQuiz = (props) => {
             setListQuiz(res.DT)
         }
     }
+
     return (
         <>
             <div> List Quizzess: </div>
@@ -37,10 +41,14 @@ const TableQuiz = (props) => {
                                 <td>{item.description}</td>
                                 <td>{item.difficulty}</td>
                                 <td style={{ display: "flex", gap: "15px" }}>
-                                    <button className="btn btn-warning ">
+                                    <button className="btn btn-warning "
+                                    // onClick={() => handleClickBtnUpdate(item)}
+                                    >
                                         Edit
                                     </button>
-                                    <button className="btn btn-danger ">
+                                    <button className="btn btn-danger "
+                                        onClick={() => props.handleClickBtnDeleteQuiz(item)}
+                                    >
                                         Delete
                                     </button>
                                 </td>
@@ -50,6 +58,8 @@ const TableQuiz = (props) => {
 
                 </tbody>
             </table>
+
+
         </>)
 }
 export default TableQuiz;

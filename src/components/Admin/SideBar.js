@@ -72,8 +72,9 @@ const SideBar = (props) => {
                                 Quan ly Users
                                 <Link to="/admins/manage-users" />
                             </MenuItem>
-                            <MenuItem> Quan ly Bai Quiz</MenuItem>
-                            <Link to="/admins/manage-quizzes" />
+                            <MenuItem> Quan ly Bai Quiz
+                                <Link to="/admins/manage-quizzes" /></MenuItem>
+
                             <MenuItem> Quan ly Cau Hoi</MenuItem>
                         </SubMenu>
 
@@ -94,7 +95,7 @@ const SideBar = (props) => {
                             rel="noopener noreferrer"
                         >
                             <FaGithub />
-                            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', }}>
                                 Thanh hoc hoi React
                             </span>
                         </a>
