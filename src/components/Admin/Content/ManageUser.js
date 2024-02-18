@@ -116,7 +116,7 @@ const ManageUser = (props) => {
                     setShow={setShowModalDeleteUser}//truyen sang cho component con
                     DataDeleteUser={DataDeleteUser}//cha truyen cho con su dung
                     fetchListUsersWithPaginate={fetchListUsersWithPaginate}
-                    currentPage={currentPage}
+                    currentPage={currentPage}// truyen current cho con 
                     setCurrentPage={setCurrentPage}
                 />
 
